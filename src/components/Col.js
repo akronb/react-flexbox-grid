@@ -9,10 +9,12 @@ const propTypes = {
   sm: ColumnSizeType,
   md: ColumnSizeType,
   lg: ColumnSizeType,
+  xl: ColumnSizeType,
   xsOffset: PropTypes.number,
   smOffset: PropTypes.number,
   mdOffset: PropTypes.number,
   lgOffset: PropTypes.number,
+  xlOffset: PropTypes.number,
   first: ViewportSizeType,
   last: ViewportSizeType,
   className: PropTypes.string,
@@ -25,14 +27,18 @@ const classMap = {
   sm: 'col-sm',
   md: 'col-md',
   lg: 'col-lg',
+  xl: 'col-xl',
   xsOffset: 'col-xs-offset',
   smOffset: 'col-sm-offset',
   mdOffset: 'col-md-offset',
-  lgOffset: 'col-lg-offset'
+  lgOffset: 'col-lg-offset',
+  xlOffset: 'col-xl-offset'
 };
 
 function isInteger(value) {
-  return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
+  return (
+    typeof value === 'number' && isFinite(value) && Math.floor(value) === value
+  );
 }
 
 function getColClassNames(props) {
@@ -52,7 +58,11 @@ function getColClassNames(props) {
 
   return Object.keys(props)
     .filter(key => classMap[key])
-    .map(key => getClass(isInteger(props[key]) ? (classMap[key] + '-' + props[key]) : classMap[key]))
+    .map(key =>
+      getClass(
+        isInteger(props[key]) ? classMap[key] + '-' + props[key] : classMap[key]
+      )
+    )
     .concat(extraClasses);
 }
 
